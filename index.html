@@ -1,29 +1,69 @@
 <!DOCTYPE html>
-<html> 
-  <head> 
-    <style type="text/css">
-        #wrapper { background-color:bisque;
-                    width: 70%;
-                    margin-left: auto;
-                    margin-right: auto;
-                    padding: 2em;}
-        </style> 
-  </head> 
-  <body> 
-    <div id="wrapper"> 
-      <h2>Madlibs</h2> 
-      <img src="http://www.madlibs.com/content/themes/madlibs/dist/images/intro_logo.png" width="20%" height="auto" /> 
-      <p>Please enter the following information:</p> 
-      <input id="pluralNoun" placeholder="a plural noun" /> 
-      <br /> 
-      <input id="noun1" placeholder="a noun" /> 
-      <br /> 
-      <input id="noun2" placeholder="another noun" /> 
-      <br /> 
-      <input id="song" placeholder="song" /> 
-      <br /> 
-      <input id="verb" placeholder="verb" /> 
-      <br /> <button type="button">Submit</button> 
-    </div>  
-  </body>
+<html>
+<head>
+    <style>
+        #wrapper {
+            background-color: bisque;
+            width: 70%;
+            margin: auto;
+            padding: 2em;
+            text-align: center;
+        }
+        #story, #goAgain {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h2>Madlibs</h2>
+        <img id="madlibsPic" src="madlibsPic.png" width="20%" height="auto" onerror="console.error('Image not found! Check file location.')" />
+        <p>Please enter the following information:</p>
+        <input id="pluralNoun" placeholder="a plural noun" /> <br />
+        <input id="noun1" placeholder="a noun" /> <br />
+        <input id="noun2" placeholder="another noun" /> <br />
+        <input id="song" placeholder="song" /> <br />
+        <input id="verb" placeholder="verb" /> <br />
+        <button type="button" onclick="generateStory()">Submit</button>
+        
+        <p id="story"></p>
+        <button id="goAgain" onclick="resetGame()">Go Again</button>
+    </div>
+
+    <script>
+        function generateStory() {
+            console.log("generateStory function called.");
+            let pluralNoun = document.getElementById("pluralNoun").value.toLowerCase();
+            let noun1 = document.getElementById("noun1").value.toLowerCase();
+            let noun2 = document.getElementById("noun2").value.toLowerCase();
+            let song = document.getElementById("song").value.toLowerCase();
+            let verb = document.getElementById("verb").value.toLowerCase();
+
+            console.log({ pluralNoun, noun1, noun2, song, verb });
+
+            if (!pluralNoun || !noun1 || !noun2 || !song || !verb) {
+                alert("Please fill out all fields!");
+                return;
+            }
+
+            let storyText = `Today, I saw a group of ${pluralNoun} dancing around a ${noun1}. They were singing '${song}' while trying to ${verb} a ${noun2}. It was the funniest thing ever!`;
+
+            document.getElementById("story").innerHTML = storyText;
+            document.getElementById("story").style.display = "block";
+            document.getElementById("goAgain").style.display = "block";
+        }
+
+        function resetGame() {
+            console.log("resetGame function called.");
+            document.getElementById("story").style.display = "none";
+            document.getElementById("goAgain").style.display = "none";
+            document.getElementById("pluralNoun").value = "";
+            document.getElementById("noun1").value = "";
+            document.getElementById("noun2").value = "";
+            document.getElementById("song").value = "";
+            document.getElementById("verb").value = "";
+        }
+    </script>
+</body>
 </html>
